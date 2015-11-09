@@ -82,6 +82,11 @@ namespace JMemLib
             Write(BitConverter.GetBytes(value), offset);
         }
 
+        public void Write(String value, int offset)
+        {
+            Write(value, offset, Encoding.ASCII);
+        }
+
         public void Write(String value, int offset, Encoding encoding)
         {
             Write(encoding.GetBytes(value), offset);
