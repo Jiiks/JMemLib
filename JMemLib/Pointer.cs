@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Text;
 using System.Threading;
 
 /**
@@ -74,6 +75,22 @@ namespace JMemLib
             }
 
             return buffer;
+        }
+
+        public void Write(int value, int offset)
+        {
+            Write(BitConverter.GetBytes(value), offset);
+        }
+
+        public void Write(String value, int offset, Encoding encoding)
+        {
+            Write(encoding.GetBytes(value), offset);
+        }
+
+        public void Write(byte[] bytes, int offset)
+        {
+            int bytesWritten = 0;
+            Native.WriteProcessMemory((int) _handle, _address + offset, bytes, bytes.Length, ref bytesWritten);
         }
 
         public void ReadListener(int bufferSize, int[] offsets,bool isBackground, ObjectWrapper objectWrapper)
